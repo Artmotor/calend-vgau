@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Календарь мероприятий Института ДПО ВГАУ</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <img src="https://v-gau.ru/include/logo-white-ivgsha.svg" alt="Логотип ВГАУ" class="logo">
+			<img src="https://static.tildacdn.com/tild3566-3134-4161-b666-303632393630/logo.svg" alt="Логотип ВГАУ" class="logo">
+            <h1>Календарь мероприятий Института ДПО</h1>
+        </div>
+    </header>
+
+    <main>
+        <div class="view-switcher">
+            <button id="month-view-btn" class="active">Месячный календарь</button>
+            <button id="year-view-btn">Годовой календарь</button>
+        </div>
+
+        <div id="month-view" class="calendar-view">
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
+                    <h2 id="current-month">Месяц Год</h2>
+                    <button id="next-month"><i class="fas fa-chevron-right"></i></button>
+                    <button id="print-month" class="print-button" title="Печать календаря на месяц"><i class="fas fa-print"></i></button>
+                </div>
+
+                <div class="calendar-wrapper">
+                    <table id="calendar">
+                        <thead>
+                            <tr>
+                                <th>Пн</th>
+                                <th>Вт</th>
+                                <th>Ср</th>
+                                <th>Чт</th>
+                                <th>Пт</th>
+                                <th>Сб</th>
+                                <th>Вс</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="events-container">
+                <h3>Мероприятия этого месяца</h3>
+                <div class="table-wrapper">
+                    <table id="events-table">
+                        <thead>
+                            <tr>
+                                <th>Дата</th>
+                                <th>Время</th>
+                                <th>Мероприятие</th>
+                                <th class="description-column">Описание</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="year-view" class="calendar-view" style="display: none;">
+			<div class="year-calendar-header">
+				<button id="prev-year"><i class="fas fa-chevron-left"></i></button>
+				<h2 id="current-year">Год</h2>
+				<button id="next-year"><i class="fas fa-chevron-right"></i></button>
+				<button id="print-halfyear-btn" title="Печать календаря на год"><i class="fas fa-print"></i></button>
+			</div>
+            <div class="year-calendar-wrapper" id="year-calendar"></div>
+        </div>
+        <div id="event-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3 id="modal-date"></h3>
+                <div id="modal-events"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© ВГАУ</p>
+    </footer>
+	<script src="script.js"></script>
+	<script src="print-halfyear.js"></script>
+</body>
+</html>
