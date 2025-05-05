@@ -227,7 +227,7 @@ function openPrintWindow(content, title) {
                     </td>
                     <td style="width: 20%;">
                         <div class="qr-code">
-                            <img src="http://qrcoder.ru/code/?https%3A%2F%2Fdpo.v-gau.ru%2F&4&0" alt="QR-код">
+                            <img src="qr-dpo.png" alt="QR-код">
                             <div>dpo.v-gau.ru</div>
                         </div>
                     </td>
