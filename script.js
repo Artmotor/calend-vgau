@@ -844,5 +844,7 @@ printYearButton.addEventListener('click', function() {
   generateYearCalendar(currentYear);
   window.print();
 });
+    // Генерация текущего года в футере
+    document.getElementById('current-year').textContent = new Date().getFullYear();
 });
 
