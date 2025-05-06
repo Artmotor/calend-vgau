@@ -836,7 +836,16 @@ function generateYearCalendar(year) {
             modal.style.display = 'none';
         }
     });
-
+	document.addEventListener('DOMContentLoaded', function() {
+    // Добавление текущего года
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+    
+    // Опционально: Добавление года основания
+    // const startYear = 2020;
+    // const currentYear = new Date().getFullYear();
+    // const yearText = startYear === currentYear ? currentYear : `${startYear}-${currentYear}`;
+    // document.getElementById('current-year').textContent = yearText;
+  });
     // Инициализация
     loadEvents();
 	// В конце файла script.js, после loadEvents();
@@ -844,7 +853,5 @@ printYearButton.addEventListener('click', function() {
   generateYearCalendar(currentYear);
   window.print();
 });
-    // Генерация текущего года в футере
-    document.getElementById('current-year').textContent = new Date().getFullYear();
 });
 
