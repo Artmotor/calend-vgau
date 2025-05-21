@@ -934,3 +934,353 @@ footer {
         font-size: 0.8rem;
     }
 }
+/* Стили для кнопки списка мероприятий */
+.events-list-button {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 15px;
+    margin-left: auto;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.events-list-button:hover {
+    background-color: #e6951f;
+    transform: scale(1.02);
+}
+
+.events-list-button i {
+    font-size: 1.1rem;
+}
+
+/* Стили для модального окна списка мероприятий */
+.large-modal {
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.events-list-container {
+    overflow-x: auto;
+}
+
+#all-events-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+#all-events-table th {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 15px;
+    text-align: left;
+    position: sticky;
+    top: 0;
+}
+
+#all-events-table td {
+    padding: 8px 15px;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: top;
+}
+
+#all-events-table tr:nth-child(even) {
+    background-color: var(--secondary-color);
+}
+
+#all-events-table tr:hover {
+    background-color: var(--hover-color);
+}
+
+@media (max-width: 768px) {
+    .events-list-button {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+    
+    .large-modal {
+        width: 95%;
+    }
+    
+    #all-events-table th,
+    #all-events-table td {
+        padding: 6px 10px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Стили для кнопки записи */
+.registration-button {
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    min-width: 140px;
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+.registration-button.active {
+    background-color: #4CAF50; /* Зеленый */
+    color: white;
+}
+
+.registration-button.active:hover {
+    background-color: #3e8e41;
+    transform: scale(1.02);
+}
+
+.registration-button.completed {
+    background-color: #FFD700; /* Желтый */
+    color: #333;
+    cursor: not-allowed;
+}
+
+.registration-button.closed {
+    background-color: #f44336; /* Красный */
+    color: white;
+    cursor: not-allowed;
+    opacity: 0.9;
+}
+
+.registration-button.unavailable {
+    background-color: #9E9E9E; /* Серый */
+    color: white;
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+/* Адаптивные стили для кнопки записи */
+@media (max-width: 768px) {
+    .registration-button {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+        min-width: 120px;
+    }
+}
+
+/* Базовые стили для header */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    position: relative;
+}
+
+.menu-button-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+}
+
+/* Стили для кнопки списка мероприятий */
+.events-list-button {
+    background-color: #71A600;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.events-list-button.mobile-version {
+    padding: 8px;
+    width: 40px;
+    justify-content: center;
+}
+
+.events-list-button .button-text {
+    display: inline;
+}
+
+.events-list-button:hover {
+    background-color: #5a8c00;
+}
+
+/* Стили для бургер-кнопки (мобильное меню) */
+.burger-menu-button {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 8px;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Модальное окно - адаптивные стили */
+.modal-content {
+    width: 95%;
+    max-width: 100%;
+    margin: 10px auto;
+    padding: 15px;
+}
+
+.large-modal {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.events-list-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+#all-events-table {
+    width: 100%;
+    min-width: 300px;
+    table-layout: fixed;
+}
+
+#all-events-table th, 
+#all-events-table td {
+    padding: 8px 10px;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+#all-events-table th {
+    min-width: 80px;
+}
+
+/* Стили для кнопок записи */
+.registration-button {
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    min-width: 120px;
+    width: 100%;
+    max-width: 150px;
+    white-space: nowrap;
+    font-weight: 500;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* Адаптивные стили для мобильных устройств */
+@media (max-width: 768px) {
+    .header-container {
+        flex-wrap: wrap;
+        padding: 8px 10px;
+    }
+    
+    .burger-menu-button {
+        display: flex;
+    }
+    
+    .events-list-button {
+        order: 2;
+        margin-left: 0;
+    }
+    
+    #all-events-table {
+        font-size: 0.9rem;
+    }
+    
+    #all-events-table th, 
+    #all-events-table td {
+        padding: 6px 8px;
+    }
+    
+    .registration-button {
+        min-width: 100px;
+        padding: 6px 8px;
+        font-size: 0.8rem;
+    }
+    
+    .modal-content h3 {
+        font-size: 1.2rem;
+    }
+}
+
+/* iPhone 5/SE и другие маленькие экраны */
+@media (max-width: 320px) {
+    .events-list-button.mobile-version {
+        width: 36px;
+        height: 36px;
+        padding: 5px;
+    }
+    
+    .burger-menu-button {
+        width: 36px;
+        height: 36px;
+        padding: 5px;
+    }
+    
+    #all-events-table {
+        font-size: 0.8rem;
+    }
+    
+    .registration-button {
+        min-width: 80px;
+        font-size: 0.7rem;
+    }
+}
+
+/* Планшеты и большие телефоны */
+@media (min-width: 481px) and (max-width: 768px) {
+    #all-events-table {
+        font-size: 0.95rem;
+    }
+    
+    .registration-button {
+        min-width: 110px;
+    }
+}
+
+/* Специфичные стили для iOS */
+@supports (-webkit-touch-callout: none) {
+    .modal-content {
+        padding-bottom: constant(safe-area-inset-bottom);
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+}
+
+/* Стили для состояний кнопок записи */
+.registration-button.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.registration-button.completed {
+    background-color: #FFD700;
+    color: #333;
+    cursor: not-allowed;
+}
+
+.registration-button.closed {
+    background-color: #f44336;
+    color: white;
+    cursor: not-allowed;
+}
+
+.registration-button.unavailable {
+    background-color: #9E9E9E;
+    color: white;
+    cursor: not-allowed;
+}
