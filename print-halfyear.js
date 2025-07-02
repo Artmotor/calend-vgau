@@ -26,7 +26,7 @@ function handleHalfYearPrint() {
         try {
             const year = window.currentYear || new Date().getFullYear();
             const printContent = generateFullYearContent(year);
-            openPrintWindow(printContent, `Календарь мероприятий ВГАУ (${year} год)`);
+            openPrintWindow(printContent, ``);
         } catch (error) {
             console.error('Ошибка печати:', error);
             alert('Ошибка при печати: ' + error.message);
@@ -214,7 +214,7 @@ function openPrintWindow(content, title) {
                             <img src="" alt="">
                         </center>
                         </div>
-					<td style="width: 10%;">
+			<td style="width: 10%;">
                         <div class="logos"><center>
                             <img src="https://static.tildacdn.com/tild3566-3134-4161-b666-303632393630/logo.svg" alt="ВГАУ">
                         </center>
