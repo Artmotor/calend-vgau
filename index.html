@@ -15,7 +15,7 @@
     <header>
         <div class="header-container">
             <img src="https://v-gau.ru/include/logo-white-ivgsha.svg" alt="Логотип ВГАУ" class="logo">
-			<img src="https://static.tildacdn.com/tild3566-3134-4161-b666-303632393630/logo.svg" alt="Логотип ВГАУ" class="logo">
+	    <img src="https://static.tildacdn.com/tild3566-3134-4161-b666-303632393630/logo.svg" alt="Логотип ВГАУ" class="logo">
             <h1>Календарь мероприятий Института ДПО</h1>
         </div>
     </header>
@@ -24,6 +24,7 @@
         <div class="view-switcher">
             <button id="month-view-btn" class="active">Месячный календарь</button>
             <button id="year-view-btn">Годовой календарь</button>
+	    <button id="downloadPdfBtn">Скачать PDF календарь</button>
         </div>
 
         <div id="month-view" class="calendar-view">
@@ -88,8 +89,7 @@
             </div>
         </div>
     </main>
-
-	        <!-- Слайдер партнеров -->
+        <!-- Слайдер партнеров -->
         <div class="partners-slider">
             <h5 class="partners-title">Наши индустриальные партнеры</h5>
             <div class="slider-wrapper">
@@ -113,7 +113,7 @@
                                 <img src="https://www.zoomed.ru/bitrix/templates/nowmedia_2017/asset/images/logo_2025.png" alt="Zoomed">
                             </a>
                         </div>
-						<div class="slider-item">
+			<div class="slider-item">
                             <a href="https://diar-vet.ru/" target="_blank" rel="noopener noreferrer">
                                 <img src="https://static.tildacdn.com/tild3665-3861-4630-a437-323437663862/logo_1.svg" alt="Diar">
                             </a>
@@ -140,7 +140,7 @@
             </a>, 2025</p>
 	<center>
 		<a href="https://artmotor.github.io/calend-vgau/lk.html" class="lk-button" title="Личный кабинет">
-			<i class="fas fa-user-circle"></i>
+		<i class="fas fa-user-circle"></i>
 		</a>
 	</center>
         </div>
@@ -166,5 +166,7 @@
 	<script src="print-halfyear.js"></script>
 	<script src="slider.js"></script>
 	<script src="events-list.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+	<script src="save-pdf.js"></script>
 </body>
 </html>
