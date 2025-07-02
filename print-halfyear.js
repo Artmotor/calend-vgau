@@ -207,27 +207,17 @@ function openPrintWindow(content, title) {
             </style>
         </head>
         <body onload="window.print(); setTimeout(() => window.close(), 500);">
-             <table class="header-table">
-                <tr>
-                    <td style="width: 20%;">
-                        <div class="logos"><center>
-                            <img src="" alt="">
-                        </center>
-                        </div>
-			<td style="width: 10%;">
-                        <div class="logos"><center>
+             <p>     <div class="logos"><center>
                             <img src="https://static.tildacdn.com/tild3566-3134-4161-b666-303632393630/logo.svg" alt="ВГАУ">
                         </center>
                         </div>
-                    </td>
-                    <td style="width: 20%;">
+              </p>
+                    <p>
                         <div class="qr-code">
                             <img src="qr-dpo.png" alt="QR-код">
                             <div>dpo.v-gau.ru</div>
                         </div>
-                    </td>
-                </tr>
-            </table>
+                    </p>
             ${content}
         </body>
         </html>
