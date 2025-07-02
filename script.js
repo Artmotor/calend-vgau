@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
             ''
         ];
 
-        const sheetUrl = encodeURIComponent('https://vgau.edu37.ru/api/calendar?gid=18228916&single=true&output=csv');
+        const sheetUrl = ('https://vgau.edu37.ru/api/calendar?gid=18228916&single=true&output=csv');
 
         let currentProxyIndex = 0;
 
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             const proxyUrl = proxyUrls[currentProxyIndex];
-            fetch(proxyUrl + sheetUrl, {
+            fetch('https://vgau.edu37.ru/api/calendar?gid=18228916&single=true&output=csv', {
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'
                 }
