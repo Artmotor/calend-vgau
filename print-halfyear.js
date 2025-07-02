@@ -211,13 +211,11 @@ function openPrintWindow(content, title) {
                             <img src="https://static.tildacdn.com/tild3566-3134-4161-b666-303632393630/logo.svg" alt="ВГАУ">
                         </center>
                         </div>
-              </p>
-                    <p>
                         <div class="qr-code">
                             <img src="qr-dpo.png" alt="QR-код">
                             <div>dpo.v-gau.ru</div>
                         </div>
-                    </p>
+              </p>
             ${content}
         </body>
         </html>
