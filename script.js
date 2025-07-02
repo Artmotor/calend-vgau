@@ -35,9 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function loadEvents() {
         // Пробуем несколько прокси-серверов на случай недоступности одного
         const proxyUrls = [
-            'https://api.allorigins.win/raw?url=',
-            'https://cors-anywhere.herokuapp.com/',
-            'https://thingproxy.freeboard.io/fetch/'
+            ''
         ];
 
         const sheetUrl = encodeURIComponent('https://vgau.edu37.ru/api/calendar?gid=18228916&single=true&output=csv');
