@@ -220,11 +220,6 @@ function openPrintWindow(content, title) {
                         </center>
                         </div>
                     </td>
-                    <td style="width: 40%;">
-                        <div class="title-container">
-                            <h5 class="calendar-title">Календарь мероприятий ВГАУ на ${window.currentYear || new Date().getFullYear()} год</h5>
-                        </div>
-                    </td>
                     <td style="width: 20%;">
                         <div class="qr-code">
                             <img src="qr-dpo.png" alt="QR-код">
