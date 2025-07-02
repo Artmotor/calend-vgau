@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'https://thingproxy.freeboard.io/fetch/'
         ];
 
-        const sheetUrl = encodeURIComponent('https://docs.google.com/spreadsheets/d/e/2PACX-1vR3SrLaKKU-5AxdAidXbTQUrYQ3hfNJ3M2evmqr2qVxkpJTqauqLu2Ljpx8xwl2m6oGjj3IUjr7MEIz/pub?gid=18228916&single=true&output=csv');
+        const sheetUrl = encodeURIComponent('https://vgau.edu37.ru/api/calendar?gid=18228916&single=true&output=csv');
 
         let currentProxyIndex = 0;
 
