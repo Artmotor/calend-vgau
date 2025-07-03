@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Личный кабинет Института ДО</title>
+    <title>Личный кабинет сотрудника Института ДПО</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
@@ -613,7 +613,7 @@
         <div id="documents-tab" class="tab-content">
             <h2>Печать документов</h2>
             <a href="https://zt.titul24.ru/form?userID=1193293328&label=%D0%92%D0%93%D0%90%D0%A3%20%D0%94%D0%9F%D0%9E%20--%20%D1%81%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82%20%D0%94%D0%9F%D0%9E" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Сертификат</a>
-			<a href="https://zt.titul24.ru/form?userID=1193293328&label=%D0%92%D0%93%D0%90%D0%A3%20%D0%94%D0%9F%D0%9E%20--%20%D1%81%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82%20%D1%81%D0%BF%D0%B5%D1%86%D0%B8%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B0" class="btn btn-success btn-sm" role="button" aria-pressed="true">Сертификат специалиста</a>
+	    <a href="https://zt.titul24.ru/form?userID=1193293328&label=%D0%92%D0%93%D0%90%D0%A3%20%D0%94%D0%9F%D0%9E%20--%20%D1%81%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82%20%D1%81%D0%BF%D0%B5%D1%86%D0%B8%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B0" class="btn btn-success btn-sm" role="button" aria-pressed="true">Сертификат специалиста</a>
         </div>
 
         <div id="statistics-tab" class="tab-content">
@@ -623,7 +623,7 @@
     </div>
 
     <footer class="footer">
-        <p>© 2025 Институт дополнительного образования. Все права защищены.</p>
+        <p>© 2025 Институт дополнительного профессионального образования ВГАУ. Все права защищены.</p>
         <p>Контактная информация: info@institute.edu | +7 (XXX) XXX-XX-XX</p>
     </footer>
 
@@ -642,12 +642,10 @@ const APP = {
     users: [],
     events: [],
     proxyUrls: [
-        'https://api.allorigins.win/raw?url=',
-        'https://cors-anywhere.herokuapp.com/',
-        'https://thingproxy.freeboard.io/fetch/'
+        ''
     ],
-    usersSheetUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTV2cP85nz3GSDaDzLZwEe51qAAbnAyll57VzqBtZwReQVU0xyd87q3xuVt_A96sAAOy1ykEx7qw15L/pub?gid=0&single=true&output=csv',
-    eventsSheetUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR3SrLaKKU-5AxdAidXbTQUrYQ3hfNJ3M2evmqr2qVxkpJTqauqLu2Ljpx8xwl2m6oGjj3IUjr7MEIz/pub?gid=18228916&single=true&output=csv',
+    usersSheetUrl: 'https://vgau.edu37.ru/api/users?gid=0&single=true&output=csv',
+    eventsSheetUrl: 'https://vgau.edu37.ru/api/calendar?gid=18228916&single=true&output=csv',
     currentUser: null,
     currentSort: { field: 'date', direction: 'asc' },
     currentProxyIndex: 0,
