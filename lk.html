@@ -710,7 +710,7 @@ const APP = {
     
     loadUsers: async function() {
         try {
-            const response = await fetch(`${this.proxyUrls[0]}${encodeURIComponent(this.usersSheetUrl)}`);
+            const response = await fetch(`${this.proxyUrls[0]}${(this.usersSheetUrl)}`);
             
             if (!response.ok) {
                 throw new Error(`Ошибка HTTP: ${response.status}`);
