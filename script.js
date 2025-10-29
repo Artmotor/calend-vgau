@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
             ''
         ];
 
-        const sheetUrl = ('https://vgau.edu37.ru');
+        const sheetUrl = ('https://vgau.edu37.ru/data.csv');
 
         let currentProxyIndex = 0;
 
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             const proxyUrl = proxyUrls[currentProxyIndex];
-            fetch('https://vgau.edu37.ru', {
+            fetch('https://vgau.edu37.ru/data.csv', {
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'
                 }
