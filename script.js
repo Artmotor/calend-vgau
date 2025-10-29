@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             const proxyUrl = proxyUrls[currentProxyIndex];
-            fetch('https://d5d4fmled1rhluh8ksno.akta928u.apigw.yandexcloud.net/data.csv' {
+            fetch('https://d5d4fmled1rhluh8ksno.akta928u.apigw.yandexcloud.net/data.csv', {
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'
                 }
