@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             const proxyUrl = proxyUrls[currentProxyIndex];
-            fetch(sheetUrl, {
+            fetch('https://vgau.edu37.ru', {
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'
                 }
