@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
             ''
         ];
 
-        const sheetUrl = ('https://vgau.edu37.ru/api/calendar?gid=18228916&single=true&output=csv');
+        const sheetUrl = ('https://d5d4fmled1rhluh8ksno.akta928u.apigw.yandexcloud.net/data.csv');
 
         let currentProxyIndex = 0;
 
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             const proxyUrl = proxyUrls[currentProxyIndex];
-            fetch('https://vgau.edu37.ru/api/calendar?gid=18228916&single=true&output=csv', {
+            fetch('https://d5d4fmled1rhluh8ksno.akta928u.apigw.yandexcloud.net/data.csv' {
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'
                 }
