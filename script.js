@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
             ''
         ];
 
-        const sheetUrl = ('https://d5d4fmled1rhluh8ksno.akta928u.apigw.yandexcloud.net/data.csv');
+        const sheetUrl = ('https://vgau.edu37.ru');
 
         let currentProxyIndex = 0;
 
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             const proxyUrl = proxyUrls[currentProxyIndex];
-            fetch('https://d5d4fmled1rhluh8ksno.akta928u.apigw.yandexcloud.net/data.csv', {
+            fetch(sheetUrl, {
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'
                 }
