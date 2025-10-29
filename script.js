@@ -38,9 +38,9 @@ document.addEventListener('DOMContentLoaded', function() {
             ''
         ];
 
+		// ендпоинт для получение данных расписания в формате csv
 		const endpoint = '/data.csv';
 		const sheetUrl = window.location.origin + endpoint;
-        // const sheetUrl = ('https://vgau.edu37.ru/data.csv');
 
         let currentProxyIndex = 0;
 
