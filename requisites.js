@@ -13,7 +13,7 @@
   }
 
   // Загружаем стили
-  if (!document.querySelector('link[href*="https://artmotor.github.io/calend-vgau/requisites/styleData.css"]')) {
+  if (!document.querySelector('link[href*="https://artmotor.github.io/calend-vgau/styleData.css"]')) {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
     link.href = 'styleData.css';
@@ -21,7 +21,7 @@
   }
 
   // Загружаем данные и рендерим
-  fetch('https://artmotor.github.io/calend-vgau/requisites/requisites.json')
+  fetch('https://artmotor.github.io/calend-vgau/requisites.json')
     .then(response => response.json())
     .then(data => {
       renderRequisites(container, data);
