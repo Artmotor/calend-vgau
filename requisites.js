@@ -157,7 +157,7 @@
       const text = document.getElementById('reqToggleText');
       const isCollapsed = content.classList.toggle('collapsed');
       icon.innerText = isCollapsed ? '▶' : '▼';
-      text.innerText = isCollapsed ? 'Развернуть реквизиты' : 'Свернуть реквизиты';
+      text.innerText = isCollapsed ? 'Реквизиты ВГАУ' : 'Свернуть реквизиты';
     });
   }
 
