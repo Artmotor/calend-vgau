@@ -13,7 +13,7 @@
   }
 
   // Загружаем стили
-  if (!document.querySelector('link[href*="style.css"]')) {
+  if (!document.querySelector('link[href*="styleData.css"]')) {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
     link.href = 'styleData.css';
@@ -44,7 +44,7 @@
         <div class="requisites-card">
           <div class="requisites-actions">
             <button class="btn-copy-all" id="copyAllBtn"><span>📋</span> Копировать все</button>
-            <div style="display: flex; gap: 0.5rem;">
+            <div ="display: flex; gap: 0.5rem;">
               <button class="btn-download" id="downloadTxt"><span>📄</span> .txt</button>
               <button class="btn-download" id="downloadPdf"><span>📑</span> .pdf</button>
             </div>
@@ -146,7 +146,7 @@
     // Скачать .pdf (печать)
     document.getElementById('downloadPdf').addEventListener('click', () => {
       const win = window.open('', '_blank');
-      win.document.write(`<html><head><title>Реквизиты ВГАУ</title><style>body{padding:2rem;font-family:system-ui} pre{white-space:pre-wrap}</style></head><body><h2>ФГБОУ ВО "Верхневолжский ГАУ"</h2><pre>${getAllText(d)}</pre></body></html>`);
+      win.document.write(`<html><head><title>Реквизиты ВГАУ</title><>body{padding:2rem;font-family:system-ui} pre{white-space:pre-wrap}</></head><body><h2>ФГБОУ ВО "Верхневолжский ГАУ"</h2><pre>${getAllText(d)}</pre></body></html>`);
       win.print();
     });
 
