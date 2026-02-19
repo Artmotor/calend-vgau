@@ -23,33 +23,41 @@
     };
 
     // Подключаем стили
-    if (!document.querySelector('link[href*="https://artmotor.github.io/calend-vgau/styleData.css"]')) {
+    if (!document.querySelector('link[href*="requisites/style.css"]')) {
         const link = document.createElement('link');
         link.rel = 'stylesheet';
-        link.href = 'styleData.css';
+        link.href = 'requisites/style.css';
         document.head.appendChild(link);
     }
 
-    // Добавляем кнопку в шапку и модальное окно
+    // Добавляем кнопку в шапку
     document.addEventListener('DOMContentLoaded', function() {
-        // Находим шапку и меню
         const header = document.querySelector('header');
         const nav = document.querySelector('nav') || header;
         
         if (!header) return;
 
-        // Создаем кнопку
+        // Находим контейнер с кнопками меню
+        const navContainer = document.querySelector('.nav-links, .menu, .navigation') || nav;
+        
+        // Создаем отдельный контейнер для мобильного меню
+        const mobileMenuBtn = document.createElement('div');
+        mobileMenuBtn.className = 'requisites-mobile-container';
+        
+        // Создаем кнопку реквизитов
         const requisitesBtn = document.createElement('button');
         requisitesBtn.id = 'requisitesHeaderBtn';
         requisitesBtn.className = 'requisites-header-btn';
         requisitesBtn.innerHTML = '<span class="btn-icon">🏛</span><span class="btn-text">Реквизиты</span>';
         
-        // Добавляем кнопку в навигацию (рядом со списком мероприятий)
-        const eventsLink = document.querySelector('a[href*="events"], a[href*="мероприятия"], .events-link, .nav-events');
-        if (eventsLink) {
-            eventsLink.parentNode.insertBefore(requisitesBtn, eventsLink.nextSibling);
+        // Добавляем кнопку в отдельный контейнер
+        mobileMenuBtn.appendChild(requisitesBtn);
+        
+        // Вставляем после навигации (чтобы была на новой строке на мобилках)
+        if (navContainer) {
+            navContainer.parentNode.insertBefore(mobileMenuBtn, navContainer.nextSibling);
         } else {
-            nav.appendChild(requisitesBtn);
+            header.appendChild(mobileMenuBtn);
         }
 
         // Создаем модальное окно
@@ -76,9 +84,8 @@
         // Открытие модального окна
         requisitesBtn.addEventListener('click', function() {
             modal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // запрет прокрутки
+            document.body.style.overflow = 'hidden';
             
-            // Загружаем реквизиты при первом открытии
             if (!container.hasAttribute('data-loaded')) {
                 renderRequisites(container, requisitesData);
                 container.setAttribute('data-loaded', 'true');
@@ -94,21 +101,26 @@
         modalClose.addEventListener('click', closeModal);
         modalOverlay.addEventListener('click', closeModal);
 
-        // Закрытие по ESC
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && modal.classList.contains('active')) {
                 closeModal();
             }
         });
 
-        // Адаптация для мобильных устройств
+        // Адаптация для мобильных
         function handleMobileLayout() {
             if (window.innerWidth <= 768) {
-                requisitesBtn.innerHTML = '<span class="btn-icon">🏛</span>';
-                requisitesBtn.title = 'Реквизиты';
+                requisitesBtn.innerHTML = '<span class="btn-icon">🏛</span><span class="btn-text">Реквизиты</span>';
+                requisitesBtn.title = '';
+                mobileMenuBtn.style.display = 'block';
+                mobileMenuBtn.style.width = '100%';
+                mobileMenuBtn.style.padding = '8px 16px 0';
             } else {
                 requisitesBtn.innerHTML = '<span class="btn-icon">🏛</span><span class="btn-text">Реквизиты</span>';
                 requisitesBtn.title = '';
+                mobileMenuBtn.style.display = 'inline-block';
+                mobileMenuBtn.style.width = 'auto';
+                mobileMenuBtn.style.padding = '0';
             }
         }
 
@@ -196,7 +208,6 @@
     }
 
     function attachHandlers(d) {
-        // Копирование отдельных полей
         document.querySelectorAll('.copy-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 const targetId = this.dataset.copy;
@@ -210,7 +221,6 @@
             });
         });
 
-        // Копировать всё
         document.getElementById('copyAllBtn')?.addEventListener('click', function() {
             const text = getAllText(d);
             navigator.clipboard.writeText(text).then(() => {
@@ -219,7 +229,6 @@
             });
         });
 
-        // Скачать TXT
         document.getElementById('downloadTxt')?.addEventListener('click', () => {
             const blob = new Blob([getAllText(d)], { type: 'text/plain' });
             const a = document.createElement('a');
@@ -228,7 +237,6 @@
             a.click();
         });
 
-        // Скачать PDF (печать)
         document.getElementById('downloadPdf')?.addEventListener('click', () => {
             const win = window.open('', '_blank');
             win.document.write(`
