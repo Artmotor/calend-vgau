@@ -23,10 +23,10 @@
     };
 
     // Подключаем стили
-    if (!document.querySelector('link[href*="requisites/style.css"]')) {
+    if (!document.querySelector('link[href*="https://artmotor.github.io/calend-vgau/styleData.css"]')) {
         const link = document.createElement('link');
         link.rel = 'stylesheet';
-        link.href = 'requisites/style.css';
+        link.href = 'styleData.css';
         document.head.appendChild(link);
     }
 
