@@ -8,8 +8,11 @@
     container.className = 'requisites-wrapper';
     
     // Ищем место для вставки (после календаря или в конец body)
-    const calendar = document.querySelector('.calendar, main, article') || document.body;
-    calendar.appendChild(container);
+    if (calendar) {
+      calendar.parentNode.insertBefore(container, calendar);
+    } else {
+    document.body.insertBefore(container, document.body.firstChild);
+    }
   }
 
   // Загружаем стили
