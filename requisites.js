@@ -16,12 +16,12 @@
   if (!document.querySelector('link[href*="requisites/style.css"]')) {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = 'requisites/style.css';
+    link.href = 'styleData.css';
     document.head.appendChild(link);
   }
 
   // Загружаем данные и рендерим
-  fetch('requisites/requisites.json')
+  fetch('requisites.json')
     .then(response => response.json())
     .then(data => {
       renderRequisites(container, data);
