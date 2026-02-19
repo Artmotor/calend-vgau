@@ -1,0 +1,190 @@
+/* ===== Реквизиты университета - светлая тема ===== */
+.requisites-wrapper {
+  margin: 2rem 0 1rem;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Кнопка-аккордеон */
+.requisites-toggle {
+  background: #f0f5fa;
+  padding: 0.9rem 2rem;
+  border-radius: 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #1e3c5c;
+  cursor: pointer;
+  border: 1px solid #c8d9ec;
+  box-shadow: 0 2px 6px rgba(0,20,40,0.05);
+  transition: all 0.2s;
+  margin-bottom: 1.2rem;
+}
+
+.requisites-toggle:hover {
+  background: #e3ecf5;
+  border-color: #9bb5d4;
+  transform: translateY(-1px);
+}
+
+.requisites-toggle .icon {
+  font-size: 1.3rem;
+}
+
+/* Контейнер с контентом */
+.requisites-content {
+  display: block;
+  transition: max-height 0.25s ease;
+}
+
+.requisites-content.collapsed {
+  display: none;
+}
+
+/* Основная карточка */
+.requisites-card {
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 1.8rem 2rem;
+  border: 1px solid #dde7f2;
+  box-shadow: 0 10px 25px -8px rgba(21, 50, 80, 0.15);
+}
+
+/* Кнопки действий */
+.requisites-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.btn-copy-all {
+  background: #1e3c5c;
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 40px;
+  font-weight: 600;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  cursor: pointer;
+  box-shadow: 0 5px 12px rgba(30,60,92,0.3);
+  transition: 0.15s;
+  border: 1px solid #2b5075;
+}
+
+.btn-copy-all:hover {
+  background: #143455;
+  transform: scale(1.02);
+}
+
+.btn-download {
+  background: white;
+  border: 1.5px solid #1e3c5c;
+  color: #1e3c5c;
+  padding: 0.6rem 1.5rem;
+  border-radius: 40px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: 0.1s;
+  font-size: 0.95rem;
+}
+
+.btn-download:hover {
+  background: #e7f0fa;
+}
+
+/* Блоки с данными */
+.requisites-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.requisites-block {
+  background: #f9fcff;
+  border-radius: 24px;
+  padding: 1.4rem 1.6rem;
+  border: 1px solid #dae4f0;
+}
+
+.block-title {
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: #0d314f;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.row-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px dashed #d0deef;
+}
+
+.row-item:last-child {
+  border-bottom: none;
+}
+
+.item-label {
+  min-width: 150px;
+  font-weight: 500;
+  color: #345579;
+}
+
+.item-value {
+  flex: 1;
+  word-break: break-word;
+  color: #122b44;
+  font-weight: 500;
+}
+
+.copy-icon {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  opacity: 0.6;
+  padding: 0 0.2rem;
+  transition: 0.1s;
+}
+
+.copy-icon:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Справочный блок */
+.ref-block {
+  margin-top: 1.2rem;
+  background: #edf4fd;
+  border-radius: 20px;
+  padding: 1rem 1.5rem;
+  border: 1px solid #c7daf0;
+}
+
+.ref-title {
+  font-weight: 600;
+  color: #0d3d61;
+  margin-bottom: 0.5rem;
+}
+
+/* Подвал */
+.requisites-footer {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #6f8faf;
+  margin-top: 1rem;
+}
