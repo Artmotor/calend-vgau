@@ -1,176 +1,265 @@
-// ===== Реквизиты ВУЗа - подключение одним скриптом =====
 (function() {
-  // Создаем контейнер, если его нет
-  let container = document.getElementById('requisites-container');
-  if (!container) {
-    container = document.createElement('div');
-    container.id = 'requisites-container';
-    container.className = 'requisites-wrapper';
-    
-    // Ищем место для вставки (после календаря или в конец body)
-    if (calendar) {
-      calendar.parentNode.insertBefore(container, calendar);
-    } else {
-    document.body.insertBefore(container, document.body.firstChild);
+    // Данные реквизитов
+    const requisitesData = {
+        fullName: "федеральное государственное бюджетное образовательное учреждение высшего образования «Верхневолжский государственный агробиотехнологический университет»",
+        shortName: "ФГБОУ ВО \"Верхневолжский ГАУ\"",
+        head: "ректор Малиновская Екатерина Евгеньевна (действует на основании Устава)",
+        address: "153012, г. Иваново, ул. Советская, д.45",
+        ogrn: "1033700052858",
+        inn: "3728012857",
+        kpp: "370201001",
+        okpo: "00492902240001",
+        oktmo: "24701000",
+        treasuryAcc: "03214643000000013237",
+        korrAcc: "40102810745370000024",
+        bankInfo: "ОКЦ №1 Волго-Вятского ГУ Банка России//УФК по Нижегородской области, г. Нижний Новгород",
+        phone: "8 (4932) 32-81-44 (приемная ректора)",
+        email: "rektorat@ivgsha.ru",
+        kbkStudy: "0000000000000000000130",
+        kbkDonation: "00000000000000000150",
+        noteSchet: "03214643000000013237",
+        noteVrem: "03212643000000013237",
+        noteKbk: "0000000000000000000510"
+    };
+
+    // Подключаем стили
+    if (!document.querySelector('link[href*="https://artmotor.github.io/calend-vgau/styleData.css"]')) {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'styleData.css';
+        document.head.appendChild(link);
     }
-  }
 
-  // Загружаем стили
-  if (!document.querySelector('link[href*="https://artmotor.github.io/calend-vgau/styleData.css"]')) {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'styleData.css';
-    document.head.appendChild(link);
-  }
+    // Добавляем кнопку в шапку и модальное окно
+    document.addEventListener('DOMContentLoaded', function() {
+        // Находим шапку и меню
+        const header = document.querySelector('header');
+        const nav = document.querySelector('nav') || header;
+        
+        if (!header) return;
 
-  // Загружаем данные и рендерим
-  fetch('https://artmotor.github.io/calend-vgau/requisites.json')
-    .then(response => response.json())
-    .then(data => {
-      renderRequisites(container, data);
-    })
-    .catch(err => {
-      container.innerHTML = '<div style="color: #b33; padding: 1rem;">⚠️ Ошибка загрузки реквизитов</div>';
-      console.error('Requisites load error:', err);
-    });
-
-  // ===== Функция рендера =====
-  function renderRequisites(container, d) {
-    // Базовая разметка
-    container.innerHTML = `
-      <div class="requisites-toggle" id="reqToggle">
-        <span class="icon">🏛</span>
-        <span id="reqToggleText">Свернуть реквизиты</span>
-        <span id="reqToggleIcon">▼</span>
-      </div>
-      <div class="requisites-content" id="reqContent">
-        <div class="requisites-card">
-          <div class="requisites-actions">
-            <button class="btn-copy-all" id="copyAllBtn"><span>📋</span> Копировать все</button>
-            <div ="display: flex; gap: 0.5rem;">
-              <button class="btn-download" id="downloadTxt"><span>📄</span> .txt</button>
-              <button class="btn-download" id="downloadPdf"><span>📑</span> .pdf</button>
-            </div>
-          </div>
-          <div class="requisites-grid" id="reqGrid"></div>
-          <div class="ref-block" id="reqRef"></div>
-        </div>
-        <div class="requisites-footer">⚡ Нажми на 📋 рядом с полем — скопируется отдельно</div>
-      </div>
-    `;
-
-    // Заполняем основные блоки
-    const grid = document.getElementById('reqGrid');
-    grid.innerHTML = `
-      <div class="requisites-block">
-        <div class="block-title"><span>🏛</span> Основное</div>
-        ${createRow('Полное наименование', d.fullName, 'fullName')}
-        ${createRow('Сокращенное', d.shortName, 'shortName')}
-        ${createRow('Руководитель', d.head, 'head')}
-        ${createRow('Адрес', d.address, 'address')}
-      </div>
-      <div class="requisites-block">
-        <div class="block-title"><span>🔢</span> Коды</div>
-        ${createRow('ОГРН', d.ogrn, 'ogrn')}
-        ${createRow('ИНН/КПП', d.inn + ' / ' + d.kpp, 'innKpp')}
-        ${createRow('ОКТМО', d.oktmo, 'oktmo')}
-        ${createRow('ОКПО', d.okpo, 'okpo')}
-      </div>
-      <div class="requisites-block">
-        <div class="block-title"><span>🏦</span> Счета</div>
-        ${createRow('Казначейский счет', d.treasuryAcc, 'treasuryAcc')}
-        ${createRow('Корр. счет', d.korrAcc, 'korrAcc')}
-        ${createRow('Банк', d.bankInfo, 'bankInfo')}
-      </div>
-      <div class="requisites-block">
-        <div class="block-title"><span>📞</span> Контакты / Оплата</div>
-        ${createRow('Телефон', d.phone, 'phone')}
-        ${createRow('Email', d.email, 'email')}
-        ${createRow('КБК обучение', d.kbkStudy, 'kbkStudy')}
-        ${createRow('КБК пожертв.', d.kbkDonation, 'kbkDonation')}
-      </div>
-    `;
-
-    // Справочный блок
-    document.getElementById('reqRef').innerHTML = `
-      <div class="ref-title">📌 Справочно (дополнительные счета)</div>
-      ${createRow('Счет текущих расчетов', d.noteSchet, 'noteSchet')}
-      ${createRow('Врем. распоряжение', d.noteVrem, 'noteVrem')}
-      ${createRow('КБК обеспечение', d.noteKbk, 'noteKbk')}
-    `;
-
-    // Добавляем обработчики
-    attachHandlers(d);
-  }
-
-  function createRow(label, value, id) {
-    return `
-      <div class="row-item">
-        <span class="item-label">${label}</span>
-        <span class="item-value" id="val_${id}">${value}</span>
-        <button class="copy-icon" data-copy="val_${id}" title="Копировать">📋</button>
-      </div>
-    `;
-  }
-
-  function attachHandlers(d) {
-    // Копирование отдельных полей
-    document.querySelectorAll('.copy-icon').forEach(btn => {
-      btn.addEventListener('click', function(e) {
-        const targetId = this.getAttribute('data-copy');
-        const el = document.getElementById(targetId);
-        if (el) {
-          navigator.clipboard.writeText(el.innerText).then(() => {
-            this.innerText = '✅';
-            setTimeout(() => this.innerText = '📋', 700);
-          });
+        // Создаем кнопку
+        const requisitesBtn = document.createElement('button');
+        requisitesBtn.id = 'requisitesHeaderBtn';
+        requisitesBtn.className = 'requisites-header-btn';
+        requisitesBtn.innerHTML = '<span class="btn-icon">🏛</span><span class="btn-text">Реквизиты</span>';
+        
+        // Добавляем кнопку в навигацию (рядом со списком мероприятий)
+        const eventsLink = document.querySelector('a[href*="events"], a[href*="мероприятия"], .events-link, .nav-events');
+        if (eventsLink) {
+            eventsLink.parentNode.insertBefore(requisitesBtn, eventsLink.nextSibling);
+        } else {
+            nav.appendChild(requisitesBtn);
         }
-      });
+
+        // Создаем модальное окно
+        const modal = document.createElement('div');
+        modal.id = 'requisitesModal';
+        modal.className = 'requisites-modal';
+        modal.innerHTML = `
+            <div class="modal-overlay"></div>
+            <div class="modal-container">
+                <div class="modal-header">
+                    <h2>🏛 Реквизиты университета</h2>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body" id="requisites-container"></div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+
+        // Элементы управления
+        const modalOverlay = modal.querySelector('.modal-overlay');
+        const modalClose = modal.querySelector('.modal-close');
+        const container = document.getElementById('requisites-container');
+
+        // Открытие модального окна
+        requisitesBtn.addEventListener('click', function() {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // запрет прокрутки
+            
+            // Загружаем реквизиты при первом открытии
+            if (!container.hasAttribute('data-loaded')) {
+                renderRequisites(container, requisitesData);
+                container.setAttribute('data-loaded', 'true');
+            }
+        });
+
+        // Закрытие
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        modalClose.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', closeModal);
+
+        // Закрытие по ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        // Адаптация для мобильных устройств
+        function handleMobileLayout() {
+            if (window.innerWidth <= 768) {
+                requisitesBtn.innerHTML = '<span class="btn-icon">🏛</span>';
+                requisitesBtn.title = 'Реквизиты';
+            } else {
+                requisitesBtn.innerHTML = '<span class="btn-icon">🏛</span><span class="btn-text">Реквизиты</span>';
+                requisitesBtn.title = '';
+            }
+        }
+
+        handleMobileLayout();
+        window.addEventListener('resize', handleMobileLayout);
     });
 
-    // Копировать всё
-    document.getElementById('copyAllBtn').addEventListener('click', function() {
-      const text = getAllText(d);
-      navigator.clipboard.writeText(text).then(() => {
-        this.innerHTML = '<span>✅</span> Скопировано!';
-        setTimeout(() => this.innerHTML = '<span>📋</span> Копировать все', 1500);
-      });
-    });
+    function renderRequisites(container, d) {
+        container.innerHTML = `
+            <div class="requisites-content">
+                <div class="requisites-actions">
+                    <button class="btn-copy-all" id="copyAllBtn">
+                        <span>📋</span> Копировать все
+                    </button>
+                    <div class="download-group">
+                        <button class="btn-download" id="downloadTxt">
+                            <span>📄</span> TXT
+                        </button>
+                        <button class="btn-download" id="downloadPdf">
+                            <span>📑</span> PDF
+                        </button>
+                    </div>
+                </div>
 
-    // Скачать .txt
-    document.getElementById('downloadTxt').addEventListener('click', () => {
-      const blob = new Blob([getAllText(d)], { type: 'text/plain' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = 'rekvizity_vgau.txt';
-      a.click();
-    });
+                <div class="requisites-grid">
+                    ${renderBlock('🏛 Основное', [
+                        ['Полное наименование', d.fullName, 'fullName'],
+                        ['Сокращенное', d.shortName, 'shortName'],
+                        ['Руководитель', d.head, 'head'],
+                        ['Адрес', d.address, 'address']
+                    ])}
+                    
+                    ${renderBlock('🔢 Коды', [
+                        ['ОГРН', d.ogrn, 'ogrn'],
+                        ['ИНН/КПП', `${d.inn} / ${d.kpp}`, 'innKpp'],
+                        ['ОКТМО', d.oktmo, 'oktmo'],
+                        ['ОКПО', d.okpo, 'okpo']
+                    ])}
+                    
+                    ${renderBlock('🏦 Счета', [
+                        ['Казначейский счет', d.treasuryAcc, 'treasuryAcc'],
+                        ['Корр. счет', d.korrAcc, 'korrAcc'],
+                        ['Банк', d.bankInfo, 'bankInfo']
+                    ])}
+                    
+                    ${renderBlock('📞 Контакты / Оплата', [
+                        ['Телефон', d.phone, 'phone'],
+                        ['Email', d.email, 'email'],
+                        ['КБК обучение', d.kbkStudy, 'kbkStudy'],
+                        ['КБК пожертв.', d.kbkDonation, 'kbkDonation']
+                    ])}
+                </div>
 
-    // Скачать .pdf (печать)
-    document.getElementById('downloadPdf').addEventListener('click', () => {
-      const win = window.open('', '_blank');
-      win.document.write(`<html><head><title>Реквизиты ВГАУ</title><>body{padding:2rem;font-family:system-ui} pre{white-space:pre-wrap}</></head><body><h2>ФГБОУ ВО "Верхневолжский ГАУ"</h2><pre>${getAllText(d)}</pre></body></html>`);
-      win.print();
-    });
+                <div class="requisites-ref">
+                    <h3>📌 Дополнительные счета</h3>
+                    ${renderRows([
+                        ['Счет текущих расчетов', d.noteSchet, 'noteSchet'],
+                        ['Врем. распоряжение', d.noteVrem, 'noteVrem'],
+                        ['КБК обеспечение', d.noteKbk, 'noteKbk']
+                    ])}
+                </div>
+            </div>
+        `;
 
-    // Аккордеон
-    document.getElementById('reqToggle').addEventListener('click', function() {
-      const content = document.getElementById('reqContent');
-      const icon = document.getElementById('reqToggleIcon');
-      const text = document.getElementById('reqToggleText');
-      const isCollapsed = content.classList.toggle('collapsed');
-      icon.innerText = isCollapsed ? '▶' : '▼';
-      text.innerText = isCollapsed ? 'Реквизиты ВГАУ' : 'Свернуть реквизиты';
-    });
-  }
+        attachHandlers(d);
+    }
 
-  function getAllText(d) {
-    return `ПОЛНОЕ НАИМЕНОВАНИЕ: ${d.fullName}
+    function renderBlock(title, rows) {
+        return `
+            <div class="requisites-block">
+                <div class="block-title">${title}</div>
+                ${renderRows(rows)}
+            </div>
+        `;
+    }
+
+    function renderRows(rows) {
+        return rows.map(([label, value, id]) => `
+            <div class="row-item">
+                <span class="item-label">${label}</span>
+                <span class="item-value" id="val_${id}">${value}</span>
+                <button class="copy-btn" data-copy="val_${id}" title="Копировать">📋</button>
+            </div>
+        `).join('');
+    }
+
+    function attachHandlers(d) {
+        // Копирование отдельных полей
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const targetId = this.dataset.copy;
+                const el = document.getElementById(targetId);
+                if (el) {
+                    navigator.clipboard.writeText(el.innerText).then(() => {
+                        this.innerText = '✅';
+                        setTimeout(() => this.innerText = '📋', 700);
+                    });
+                }
+            });
+        });
+
+        // Копировать всё
+        document.getElementById('copyAllBtn')?.addEventListener('click', function() {
+            const text = getAllText(d);
+            navigator.clipboard.writeText(text).then(() => {
+                this.innerHTML = '<span>✅</span> Скопировано!';
+                setTimeout(() => this.innerHTML = '<span>📋</span> Копировать все', 1500);
+            });
+        });
+
+        // Скачать TXT
+        document.getElementById('downloadTxt')?.addEventListener('click', () => {
+            const blob = new Blob([getAllText(d)], { type: 'text/plain' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'rekvizity_vgau.txt';
+            a.click();
+        });
+
+        // Скачать PDF (печать)
+        document.getElementById('downloadPdf')?.addEventListener('click', () => {
+            const win = window.open('', '_blank');
+            win.document.write(`
+                <html>
+                <head>
+                    <title>Реквизиты Верхневолжский ГАУ</title>
+                    <style>
+                        body { padding: 2rem; font-family: system-ui; line-height: 1.5; }
+                        pre { white-space: pre-wrap; background: #f5f5f5; padding: 1rem; border-radius: 8px; }
+                        @media print { body { padding: 0; } }
+                    </style>
+                </head>
+                <body>
+                    <h2>ФГБОУ ВО "Верхневолжский ГАУ"</h2>
+                    <pre>${getAllText(d)}</pre>
+                </body>
+                </html>
+            `);
+            win.print();
+        });
+    }
+
+    function getAllText(d) {
+        return `ПОЛНОЕ НАИМЕНОВАНИЕ: ${d.fullName}
 СОКРАЩЕННОЕ: ${d.shortName}
 РУКОВОДИТЕЛЬ: ${d.head}
 АДРЕС: ${d.address}
-ОГРН: ${d.ogrn}  ИНН/КПП: ${d.inn}/${d.kpp}
-ОКТМО: ${d.oktmo}  ОКПО: ${d.okpo}
+ОГРН: ${d.ogrn}
+ИНН/КПП: ${d.inn}/${d.kpp}
+ОКТМО: ${d.oktmo}
+ОКПО: ${d.okpo}
 КАЗНАЧЕЙСКИЙ СЧЕТ: ${d.treasuryAcc}
 КОРР. СЧЕТ: ${d.korrAcc}
 БАНК: ${d.bankInfo}
@@ -181,5 +270,5 @@ EMAIL: ${d.email}
 СЧЕТ ТЕКУЩИХ РАСЧЕТОВ: ${d.noteSchet}
 СЧЕТ ВРЕМ. РАСПОРЯЖЕНИЯ: ${d.noteVrem}
 КБК ОБЕСПЕЧЕНИЕ: ${d.noteKbk}`;
-  }
+    }
 })();
