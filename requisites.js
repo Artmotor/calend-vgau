@@ -13,7 +13,7 @@
   }
 
   // Загружаем стили
-  if (!document.querySelector('link[href*="requisites/style.css"]')) {
+  if (!document.querySelector('link[href*="style.css"]')) {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
     link.href = 'styleData.css';
