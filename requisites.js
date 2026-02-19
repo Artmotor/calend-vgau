@@ -21,7 +21,7 @@
   }
 
   // Загружаем данные и рендерим
-  fetch('requisites.json')
+  fetch('https://artmotor.github.io/calend-vgau/requisites/requisites.json')
     .then(response => response.json())
     .then(data => {
       renderRequisites(container, data);
