@@ -30,37 +30,30 @@
         document.head.appendChild(link);
     }
 
-    // Добавляем кнопку в шапку
     document.addEventListener('DOMContentLoaded', function() {
+        // 1. НАХОДИМ ИЛИ СОЗДАЕМ КОНТЕЙНЕР ДЛЯ КНОПКИ
         const header = document.querySelector('header');
-        const nav = document.querySelector('nav') || header;
-        
         if (!header) return;
 
-        // Находим контейнер с кнопками меню
-        const navContainer = document.querySelector('.nav-links, .menu, .navigation') || nav;
-        
-        // Создаем отдельный контейнер для мобильного меню
-        const mobileMenuBtn = document.createElement('div');
-        mobileMenuBtn.className = 'requisites-mobile-container';
-        
-        // Создаем кнопку реквизитов
+        // Удаляем старую кнопку, если есть
+        const oldBtn = document.getElementById('requisitesHeaderBtn');
+        if (oldBtn) oldBtn.remove();
+
+        // Создаем новую кнопку
         const requisitesBtn = document.createElement('button');
         requisitesBtn.id = 'requisitesHeaderBtn';
         requisitesBtn.className = 'requisites-header-btn';
-        requisitesBtn.innerHTML = '<span class="btn-icon">🏛</span><span class="btn-text">Реквизиты</span>';
-        
-        // Добавляем кнопку в отдельный контейнер
-        mobileMenuBtn.appendChild(requisitesBtn);
-        
-        // Вставляем после навигации (чтобы была на новой строке на мобилках)
-        if (navContainer) {
-            navContainer.parentNode.insertBefore(mobileMenuBtn, navContainer.nextSibling);
-        } else {
-            header.appendChild(mobileMenuBtn);
-        }
+        requisitesBtn.innerHTML = '🏛 Реквизиты';
 
-        // Создаем модальное окно
+        // Просто добавляем в конец шапки (всегда будет новой строкой)
+        header.appendChild(requisitesBtn);
+
+        // 2. СОЗДАЕМ МОДАЛЬНОЕ ОКНО
+        // Удаляем старое модальное окно
+        const oldModal = document.getElementById('requisitesModal');
+        if (oldModal) oldModal.remove();
+
+        // Создаем новое
         const modal = document.createElement('div');
         modal.id = 'requisitesModal';
         modal.className = 'requisites-modal';
@@ -69,7 +62,7 @@
             <div class="modal-container">
                 <div class="modal-header">
                     <h2>🏛 Реквизиты университета</h2>
-                    <button class="modal-close">&times;</button>
+                    <button class="modal-close">✕</button>
                 </div>
                 <div class="modal-body" id="requisites-container"></div>
             </div>
@@ -82,50 +75,26 @@
         const container = document.getElementById('requisites-container');
 
         // Открытие модального окна
-        requisitesBtn.addEventListener('click', function() {
-            modal.classList.add('active');
+        requisitesBtn.onclick = function() {
+            modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
             
             if (!container.hasAttribute('data-loaded')) {
                 renderRequisites(container, requisitesData);
                 container.setAttribute('data-loaded', 'true');
             }
-        });
+        };
 
         // Закрытие
-        function closeModal() {
-            modal.classList.remove('active');
+        modalClose.onclick = function() {
+            modal.style.display = 'none';
             document.body.style.overflow = '';
-        }
+        };
 
-        modalClose.addEventListener('click', closeModal);
-        modalOverlay.addEventListener('click', closeModal);
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && modal.classList.contains('active')) {
-                closeModal();
-            }
-        });
-
-        // Адаптация для мобильных
-        function handleMobileLayout() {
-            if (window.innerWidth <= 768) {
-                requisitesBtn.innerHTML = '<span class="btn-icon">🏛</span><span class="btn-text">Реквизиты</span>';
-                requisitesBtn.title = '';
-                mobileMenuBtn.style.display = 'block';
-                mobileMenuBtn.style.width = '100%';
-                mobileMenuBtn.style.padding = '8px 16px 0';
-            } else {
-                requisitesBtn.innerHTML = '<span class="btn-icon">🏛</span><span class="btn-text">Реквизиты</span>';
-                requisitesBtn.title = '';
-                mobileMenuBtn.style.display = 'inline-block';
-                mobileMenuBtn.style.width = 'auto';
-                mobileMenuBtn.style.padding = '0';
-            }
-        }
-
-        handleMobileLayout();
-        window.addEventListener('resize', handleMobileLayout);
+        modalOverlay.onclick = function() {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        };
     });
 
     function renderRequisites(container, d) {
@@ -133,120 +102,100 @@
             <div class="requisites-content">
                 <div class="requisites-actions">
                     <button class="btn-copy-all" id="copyAllBtn">
-                        <span>📋</span> Копировать все
+                        📋 Копировать все реквизиты
                     </button>
                     <div class="download-group">
-                        <button class="btn-download" id="downloadTxt">
-                            <span>📄</span> TXT
-                        </button>
-                        <button class="btn-download" id="downloadPdf">
-                            <span>📑</span> PDF
-                        </button>
+                        <button class="btn-download" id="downloadTxt">📄 Скачать TXT</button>
+                        <button class="btn-download" id="downloadPdf">📑 Скачать PDF</button>
                     </div>
                 </div>
 
-                <div class="requisites-grid">
-                    ${renderBlock('🏛 Основное', [
-                        ['Полное наименование', d.fullName, 'fullName'],
-                        ['Сокращенное', d.shortName, 'shortName'],
-                        ['Руководитель', d.head, 'head'],
-                        ['Адрес', d.address, 'address']
-                    ])}
-                    
-                    ${renderBlock('🔢 Коды', [
-                        ['ОГРН', d.ogrn, 'ogrn'],
-                        ['ИНН/КПП', `${d.inn} / ${d.kpp}`, 'innKpp'],
-                        ['ОКТМО', d.oktmo, 'oktmo'],
-                        ['ОКПО', d.okpo, 'okpo']
-                    ])}
-                    
-                    ${renderBlock('🏦 Счета', [
-                        ['Казначейский счет', d.treasuryAcc, 'treasuryAcc'],
-                        ['Корр. счет', d.korrAcc, 'korrAcc'],
-                        ['Банк', d.bankInfo, 'bankInfo']
-                    ])}
-                    
-                    ${renderBlock('📞 Контакты / Оплата', [
-                        ['Телефон', d.phone, 'phone'],
-                        ['Email', d.email, 'email'],
-                        ['КБК обучение', d.kbkStudy, 'kbkStudy'],
-                        ['КБК пожертв.', d.kbkDonation, 'kbkDonation']
-                    ])}
+                <div class="requisites-section">
+                    <h3>🏛 Основное</h3>
+                    ${createRow('Полное наименование', d.fullName)}
+                    ${createRow('Сокращенное', d.shortName)}
+                    ${createRow('Руководитель', d.head)}
+                    ${createRow('Адрес', d.address)}
                 </div>
 
-                <div class="requisites-ref">
+                <div class="requisites-section">
+                    <h3>🔢 Коды и регистрация</h3>
+                    ${createRow('ОГРН', d.ogrn)}
+                    ${createRow('ИНН/КПП', `${d.inn} / ${d.kpp}`)}
+                    ${createRow('ОКТМО', d.oktmo)}
+                    ${createRow('ОКПО', d.okpo)}
+                </div>
+
+                <div class="requisites-section">
+                    <h3>🏦 Банковские реквизиты</h3>
+                    ${createRow('Казначейский счет', d.treasuryAcc)}
+                    ${createRow('Корреспондентский счет', d.korrAcc)}
+                    ${createRow('Банк', d.bankInfo)}
+                </div>
+
+                <div class="requisites-section">
+                    <h3>📞 Контакты</h3>
+                    ${createRow('Телефон', d.phone)}
+                    ${createRow('Email', d.email)}
+                </div>
+
+                <div class="requisites-section">
+                    <h3>💰 Для оплаты</h3>
+                    ${createRow('КБК (обучение/общежитие)', d.kbkStudy)}
+                    ${createRow('КБК (пожертвования)', d.kbkDonation)}
+                </div>
+
+                <div class="requisites-section ref-section">
                     <h3>📌 Дополнительные счета</h3>
-                    ${renderRows([
-                        ['Счет текущих расчетов', d.noteSchet, 'noteSchet'],
-                        ['Врем. распоряжение', d.noteVrem, 'noteVrem'],
-                        ['КБК обеспечение', d.noteKbk, 'noteKbk']
-                    ])}
+                    ${createRow('Счет текущих расчетов', d.noteSchet)}
+                    ${createRow('Временное распоряжение', d.noteVrem)}
+                    ${createRow('КБК обеспечение', d.noteKbk)}
                 </div>
             </div>
         `;
 
-        attachHandlers(d);
-    }
-
-    function renderBlock(title, rows) {
-        return `
-            <div class="requisites-block">
-                <div class="block-title">${title}</div>
-                ${renderRows(rows)}
-            </div>
-        `;
-    }
-
-    function renderRows(rows) {
-        return rows.map(([label, value, id]) => `
-            <div class="row-item">
-                <span class="item-label">${label}</span>
-                <span class="item-value" id="val_${id}">${value}</span>
-                <button class="copy-btn" data-copy="val_${id}" title="Копировать">📋</button>
-            </div>
-        `).join('');
-    }
-
-    function attachHandlers(d) {
-        document.querySelectorAll('.copy-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const targetId = this.dataset.copy;
-                const el = document.getElementById(targetId);
-                if (el) {
-                    navigator.clipboard.writeText(el.innerText).then(() => {
-                        this.innerText = '✅';
-                        setTimeout(() => this.innerText = '📋', 700);
-                    });
-                }
-            });
+        // Добавляем обработчики для копирования
+        const rows = container.querySelectorAll('.row-item');
+        rows.forEach(row => {
+            const copyBtn = row.querySelector('.copy-btn');
+            const valueSpan = row.querySelector('.item-value');
+            
+            copyBtn.onclick = function() {
+                navigator.clipboard.writeText(valueSpan.innerText).then(() => {
+                    copyBtn.textContent = '✅';
+                    setTimeout(() => copyBtn.textContent = '📋', 700);
+                });
+            };
         });
 
-        document.getElementById('copyAllBtn')?.addEventListener('click', function() {
+        // Копировать всё
+        document.getElementById('copyAllBtn').onclick = function() {
             const text = getAllText(d);
             navigator.clipboard.writeText(text).then(() => {
-                this.innerHTML = '<span>✅</span> Скопировано!';
-                setTimeout(() => this.innerHTML = '<span>📋</span> Копировать все', 1500);
+                this.textContent = '✅ Скопировано!';
+                setTimeout(() => this.textContent = '📋 Копировать все реквизиты', 1500);
             });
-        });
+        };
 
-        document.getElementById('downloadTxt')?.addEventListener('click', () => {
+        // Скачать TXT
+        document.getElementById('downloadTxt').onclick = function() {
             const blob = new Blob([getAllText(d)], { type: 'text/plain' });
             const a = document.createElement('a');
             a.href = URL.createObjectURL(blob);
             a.download = 'rekvizity_vgau.txt';
             a.click();
-        });
+        };
 
-        document.getElementById('downloadPdf')?.addEventListener('click', () => {
+        // Скачать PDF
+        document.getElementById('downloadPdf').onclick = function() {
             const win = window.open('', '_blank');
             win.document.write(`
                 <html>
                 <head>
                     <title>Реквизиты Верхневолжский ГАУ</title>
                     <style>
-                        body { padding: 2rem; font-family: system-ui; line-height: 1.5; }
-                        pre { white-space: pre-wrap; background: #f5f5f5; padding: 1rem; border-radius: 8px; }
-                        @media print { body { padding: 0; } }
+                        body { font-family: Arial, sans-serif; padding: 20px; }
+                        pre { white-space: pre-wrap; background: #f5f5f5; padding: 15px; border-radius: 5px; }
                     </style>
                 </head>
                 <body>
@@ -256,27 +205,45 @@
                 </html>
             `);
             win.print();
-        });
+        };
+    }
+
+    function createRow(label, value) {
+        return `
+            <div class="row-item">
+                <span class="item-label">${label}</span>
+                <span class="item-value">${value}</span>
+                <button class="copy-btn">📋</button>
+            </div>
+        `;
     }
 
     function getAllText(d) {
-        return `ПОЛНОЕ НАИМЕНОВАНИЕ: ${d.fullName}
+        return `ФГБОУ ВО "Верхневолжский ГАУ"
+        
+ПОЛНОЕ НАИМЕНОВАНИЕ: ${d.fullName}
 СОКРАЩЕННОЕ: ${d.shortName}
 РУКОВОДИТЕЛЬ: ${d.head}
 АДРЕС: ${d.address}
+
 ОГРН: ${d.ogrn}
 ИНН/КПП: ${d.inn}/${d.kpp}
 ОКТМО: ${d.oktmo}
 ОКПО: ${d.okpo}
+
 КАЗНАЧЕЙСКИЙ СЧЕТ: ${d.treasuryAcc}
 КОРР. СЧЕТ: ${d.korrAcc}
 БАНК: ${d.bankInfo}
+
 ТЕЛЕФОН: ${d.phone}
 EMAIL: ${d.email}
-КБК (обучение): ${d.kbkStudy}
+
+КБК (обучение/общежитие): ${d.kbkStudy}
 КБК (пожертвования): ${d.kbkDonation}
-СЧЕТ ТЕКУЩИХ РАСЧЕТОВ: ${d.noteSchet}
-СЧЕТ ВРЕМ. РАСПОРЯЖЕНИЯ: ${d.noteVrem}
-КБК ОБЕСПЕЧЕНИЕ: ${d.noteKbk}`;
+
+ДОПОЛНИТЕЛЬНЫЕ СЧЕТА:
+Счет текущих расчетов: ${d.noteSchet}
+Временное распоряжение: ${d.noteVrem}
+КБК обеспечение: ${d.noteKbk}`;
     }
 })();
