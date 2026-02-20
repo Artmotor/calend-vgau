@@ -116,6 +116,7 @@
                     ${createRow('Сокращенное', d.shortName)}
                     ${createRow('Руководитель', d.head)}
                     ${createRow('Адрес', d.address)}
+                    ${createRow('ИНН', d.inn)}
                 </div>
 
                 <div class="requisites-section">
